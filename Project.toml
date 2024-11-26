@@ -10,8 +10,8 @@ HalfIntegers = "f0d1745a-41c9-11e9-1dd9-e5d34d218721"
 LabelledNumbers = "f856a3a6-4152-4ec4-b2a7-02c1a55d7993"
 
 [sources]
-GradedUnitRanges = {path = "/Users/mfishman/.julia/dev/GradedUnitRanges"}
-LabelledNumbers = {path = "/Users/mfishman/.julia/dev/LabelledNumbers"}
+GradedUnitRanges = {url = "https://github.com/ITensor/GradedUnitRanges.jl"}
+LabelledNumbers = {url = "https://github.com/ITensor/LabelledNumbers.jl"}
 
 [compat]
 Aqua = "0.8.9"
