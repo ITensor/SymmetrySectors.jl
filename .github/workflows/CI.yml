@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - 'lts'
+          # - 'lts' # TODO: Reenable once dependencie are registered.
           - '1'
         os:
           - ubuntu-latest
