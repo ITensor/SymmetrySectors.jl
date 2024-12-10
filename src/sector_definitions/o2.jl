@@ -9,9 +9,6 @@
 # - 2-dimensional Sz=±|m| irrep, with m a half integer
 #
 
-using HalfIntegers: Half, HalfInteger
-using ..GradedUnitRanges: GradedUnitRanges
-
 # here we use only one half-integer as label:
 # - l=0 for trivial
 # - l=-1 for zero odd

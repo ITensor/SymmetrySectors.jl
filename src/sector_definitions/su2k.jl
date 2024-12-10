@@ -2,9 +2,6 @@
 # Quantum 'group' su2ₖ
 #
 
-using HalfIntegers: Half
-using ...GradedUnitRanges: GradedUnitRanges
-
 struct su2{k} <: AbstractSector
   j::Half{Int}
 end

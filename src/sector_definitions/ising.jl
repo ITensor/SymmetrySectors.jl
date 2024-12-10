@@ -4,9 +4,6 @@
 # (same fusion rules as su2{2})
 #
 
-using HalfIntegers: Half, twice
-using ..GradedUnitRanges: GradedUnitRanges
-
 struct Ising <: AbstractSector
   l::Half{Int}
 end

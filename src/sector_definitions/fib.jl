@@ -3,8 +3,6 @@
 #
 # (same fusion rules as subcategory {0,1} of su2{3})
 #
-using ..GradedUnitRanges: GradedUnitRanges
-
 struct Fib <: AbstractSector
   l::Int
 end

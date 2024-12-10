@@ -2,8 +2,6 @@
 # Cyclic group Zₙ
 #
 
-using ...GradedUnitRanges: GradedUnitRanges
-
 struct Z{N} <: AbstractSector
   m::Int
   Z{N}(m) where {N} = new{N}(mod(m, N))

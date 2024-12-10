@@ -2,9 +2,6 @@
 # Special unitary group SU(N)
 #
 
-using HalfIntegers: HalfInteger, half, twice
-using ...GradedUnitRanges: GradedUnitRanges
-
 struct SU{N,M} <: AbstractSector
   # l is the first row of the
   # Gelfand-Tsetlin (GT) pattern describing
