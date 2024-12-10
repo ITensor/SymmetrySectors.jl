@@ -1,4 +1,3 @@
-@eval module $(gensym())
 using GradedUnitRanges: dual, sector_type
 using SymmetrySectors:
   Fib,
@@ -88,7 +87,7 @@ using Test: @inferred, @test, @testset, @test_throws
   @testset "O(2)" begin
     s0e = O2(0)
     s0o = O2(-1)
-    s12 = O2(1//2)
+    s12 = O2(1 // 2)
     s1 = O2(1)
 
     @test trivial(O2) == s0e
@@ -112,9 +111,9 @@ using Test: @inferred, @test, @testset, @test_throws
 
   @testset "SU(2)" begin
     j1 = SU2(0)
-    j2 = SU2(1//2)  # Rational will be cast to HalfInteger
+    j2 = SU2(1 // 2)  # Rational will be cast to HalfInteger
     j3 = SU2(1)
-    j4 = SU2(3//2)
+    j4 = SU2(3 // 2)
 
     # alternative constructors
     @test j2 == SU{2}((1,))  # tuple SU(N)-like constructor
@@ -128,7 +127,7 @@ using Test: @inferred, @test, @testset, @test_throws
 
     @test trivial(SU{2}) == SU2(0)
     @test istrivial(SU2(0))
-    @test fundamental(SU{2}) == SU2(1//2)
+    @test fundamental(SU{2}) == SU2(1 // 2)
 
     @test quantum_dimension(j1) == 1
     @test quantum_dimension(j2) == 2
@@ -215,5 +214,4 @@ using Test: @inferred, @test, @testset, @test_throws
 
     @test ı < σ < ψ
   end
-end
 end

@@ -1,4 +1,3 @@
-@eval module $(gensym())
 using GradedUnitRanges:
   dual, fusion_product, space_isequal, gradedrange, flip, tensor_product
 using SymmetrySectors:
@@ -55,7 +54,7 @@ using Test: @inferred, @test, @testset, @test_throws
   @testset "O2 fusion rules" begin
     s0e = O2(0)
     s0o = O2(-1)
-    s12 = O2(1//2)
+    s12 = O2(1 // 2)
     s1 = O2(1)
 
     q = TrivialSector()
@@ -71,7 +70,7 @@ using Test: @inferred, @test, @testset, @test_throws
     @test space_isequal((@inferred s0o ⊗ s12), gradedrange([s12 => 1]))
     @test space_isequal((@inferred s12 ⊗ s0e), gradedrange([s12 => 1]))
     @test space_isequal((@inferred s12 ⊗ s0o), gradedrange([s12 => 1]))
-    @test space_isequal((@inferred s12 ⊗ s1), gradedrange([s12 => 1, O2(3//2) => 1]))
+    @test space_isequal((@inferred s12 ⊗ s1), gradedrange([s12 => 1, O2(3 // 2) => 1]))
     @test space_isequal((@inferred s12 ⊗ s12), gradedrange([s0o => 1, s0e => 1, s1 => 1]))
 
     @test (@inferred quantum_dimension(s0o ⊗ s1)) == 2
@@ -80,9 +79,9 @@ using Test: @inferred, @test, @testset, @test_throws
 
   @testset "SU2 fusion rules" begin
     j1 = SU2(0)
-    j2 = SU2(1//2)
+    j2 = SU2(1 // 2)
     j3 = SU2(1)
-    j4 = SU2(3//2)
+    j4 = SU2(3 // 2)
     j5 = SU2(2)
 
     @test space_isequal(j1 ⊗ j2, gradedrange([j2 => 1]))
@@ -216,17 +215,17 @@ end
   end
 
   @testset "GradedUnitRange non-abelian fusion rules" begin
-    g3 = gradedrange([SU2(0) => 1, SU2(1//2) => 2, SU2(1) => 1])
-    g4 = gradedrange([SU2(1//2) => 1, SU2(1) => 2])
+    g3 = gradedrange([SU2(0) => 1, SU2(1 // 2) => 2, SU2(1) => 1])
+    g4 = gradedrange([SU2(1 // 2) => 1, SU2(1) => 2])
     g34 = gradedrange([
-      SU2(1//2) => 1,
+      SU2(1 // 2) => 1,
       SU2(0) => 2,
       SU2(1) => 2,
-      SU2(1//2) => 1,
-      SU2(3//2) => 1,
+      SU2(1 // 2) => 1,
+      SU2(3 // 2) => 1,
       SU2(1) => 2,
-      SU2(1//2) => 4,
-      SU2(3//2) => 4,
+      SU2(1 // 2) => 4,
+      SU2(3 // 2) => 4,
       SU2(0) => 2,
       SU2(1) => 2,
       SU2(2) => 2,
@@ -237,7 +236,7 @@ end
     @test space_isequal(dual(flip(g3)), g3)  # trivial for SU(2)
     @test space_isequal(
       (@inferred fusion_product(g3, g4)),
-      gradedrange([SU2(0) => 4, SU2(1//2) => 6, SU2(1) => 6, SU2(3//2) => 5, SU2(2) => 2]),
+      gradedrange([SU2(0) => 4, SU2(1 // 2) => 6, SU2(1) => 6, SU2(3 // 2) => 5, SU2(2) => 2]),
     )
     @test (@inferred block_dimensions(g3)) == [1, 4, 3]
 
@@ -272,10 +271,10 @@ end
     @test space_isequal((@inferred fusion_product(g1, U1(1))), g2)
     @test space_isequal((@inferred fusion_product(U1(1), g1)), g2)
 
-    g3 = gradedrange([SU2(0) => 1, SU2(1//2) => 2])
-    g4 = gradedrange([SU2(0) => 2, SU2(1//2) => 1, SU2(1) => 2])
-    @test space_isequal((@inferred fusion_product(g3, SU2(1//2))), g4)
-    @test space_isequal((@inferred fusion_product(SU2(1//2), g3)), g4)
+    g3 = gradedrange([SU2(0) => 1, SU2(1 // 2) => 2])
+    g4 = gradedrange([SU2(0) => 2, SU2(1 // 2) => 1, SU2(1) => 2])
+    @test space_isequal((@inferred fusion_product(g3, SU2(1 // 2))), g4)
+    @test space_isequal((@inferred fusion_product(SU2(1 // 2), g3)), g4)
 
     # test different simple sectors cannot be fused
     @test_throws MethodError Z{2}(0) ⊗ U1(1)
@@ -283,5 +282,4 @@ end
     @test_throws MethodError fusion_product(g1, SU2(1))
     @test_throws MethodError fusion_product(U1(1), g3)
   end
-end
 end
