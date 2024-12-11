@@ -4,7 +4,12 @@
 using BlockArrays: blocklengths
 using LabelledNumbers: LabelledInteger, label, label_type, labelled, unlabel, unlabel_type
 using GradedUnitRanges:
-  GradedUnitRanges, blocklabels, fuse_blocklengths, gradedrange, tensor_product
+  GradedUnitRanges,
+  blocklabels,
+  fuse_blocklengths,
+  fusion_product,
+  gradedrange,
+  tensor_product
 
 abstract type AbstractSector end
 
@@ -46,6 +51,13 @@ end
 quantum_dimension(::AbelianStyle, ::AbstractSector) = 1
 quantum_dimension(::AbelianStyle, g::AbstractUnitRange) = length(g)
 quantum_dimension(::NotAbelianStyle, g::AbstractUnitRange) = sum(block_dimensions(g))
+
+function nsymbol(s1::AbstractSector, s2::AbstractSector, s3::AbstractSector)
+  full_space = fusion_product(s1, s2)
+  i = findfirst(==(s3), blocklabels(full_space))
+  isnothing(i) && return labelled(0, s3)
+  return blocklengths(full_space)[i]
+end
 
 # ===============================  Fusion rule interface  ==================================
 ⊗(c1::AbstractSector, c2::AbstractSector) = fusion_rule(c1, c2)
