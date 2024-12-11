@@ -1,6 +1,8 @@
 # This file defines SymmetryStyle, a trait to distinguish abelian groups, non-abelian groups
 # and non-group fusion categories.
 
+using LabelledNumbers: LabelledInteger, label_type
+
 abstract type SymmetryStyle end
 
 struct AbelianStyle <: SymmetryStyle end

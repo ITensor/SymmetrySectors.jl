@@ -1,6 +1,11 @@
 # This file defines the abstract type AbstractSector
 # all fusion categories (Z{2}, SU2, Ising...) are subtypes of AbstractSector
 
+using BlockArrays: blocklengths
+using LabelledNumbers: LabelledInteger, label, label_type, labelled, unlabel, unlabel_type
+using GradedUnitRanges:
+  GradedUnitRanges, blocklabels, fuse_blocklengths, gradedrange, tensor_product
+
 abstract type AbstractSector end
 
 # ===================================  Base interface  =====================================

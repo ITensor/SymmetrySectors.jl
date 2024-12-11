@@ -3,6 +3,8 @@
 # acts as a trivial sector for any AbstractSector
 #
 
+using ...GradedUnitRanges: GradedUnitRanges
+
 # Trivial is special as it does not have a label
 struct TrivialSector <: AbstractSector end
 
