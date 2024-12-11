@@ -4,7 +4,6 @@ using Aqua: Aqua
 using Test: @testset
 
 @testset "Code quality (Aqua.jl)" begin
-  # TODO: Reenable once dependencies are registered"
-  # Aqua.test_all(SymmetrySectors)
+  Aqua.test_all(SymmetrySectors)
 end
 end
