@@ -24,7 +24,7 @@ using TestExtras: @constinferred
     @test z0 ⊗ z0 == z0
     @test z0 ⊗ z1 == z1
     @test z1 ⊗ z1 == z0
-    @test (@constinferred z0 ⊗ z0) == z0  # no better way, see Julia PR 23426
+    @test (@constinferred z0 ⊗ z0) == z0
 
     q = TrivialSector()
     @test (@constinferred q ⊗ q) == q
@@ -49,7 +49,7 @@ using TestExtras: @constinferred
     @test q1 ⊗ q1 == U1(2)
     @test q1 ⊗ q2 == U1(3)
     @test q2 ⊗ q1 == U1(3)
-    @test (@constinferred q1 ⊗ q2) == q3  # no better way, see Julia PR 23426
+    @test (@constinferred q1 ⊗ q2) == q3
   end
 
   @testset "O2 fusion rules" begin
