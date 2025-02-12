@@ -236,3 +236,9 @@ function shared_arguments_fusion_rule(shared1::NT, shared2::NT) where {NT<:Named
   tuple_fused = shared_arguments_fusion_rule(values(shared1), values(shared2))
   return map_blocklabels(SectorProduct ∘ NT ∘ arguments ∘ SectorProduct, tuple_fused)
 end
+
+function GradedUnitRanges.gradedrange(
+  lblocklengths::AbstractVector{<:Pair{NT,<:Integer}}
+) where {NT<:NamedTuple{<:Any,<:Tuple{Vararg{AbstractSector}}}}
+  return gradedrange(map(SectorProduct, first.(lblocklengths)) .=> last.(lblocklengths))
+end
