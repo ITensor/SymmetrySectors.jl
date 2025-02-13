@@ -19,6 +19,7 @@ jobs:
          repo:
            - 'ITensor/BlockSparseArrays.jl'
            - 'ITensor/QuantumOperatorDefinitions.jl'
+           - 'ITensor/TensorAlgebra.jl'
     uses: "ITensor/ITensorActions/.github/workflows/IntegrationTest.yml@main"
     with:
       localregistry: "https://github.com/ITensor/ITensorRegistry.git"
