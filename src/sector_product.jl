@@ -14,6 +14,7 @@ end
 SectorProduct(c::SectorProduct) = _SectorProduct(arguments(c))
 
 arguments(s::SectorProduct) = s.arguments
+arguments(s::DualSector{<:SectorProduct}) = map(dual, arguments(nondual(s)))  # need map in NamedTuple
 
 # =================================  Sectors interface  ====================================
 function SymmetryStyle(T::Type{<:SectorProduct})
@@ -25,7 +26,7 @@ function quantum_dimension(::NotAbelianStyle, s::SectorProduct)
 end
 
 # use map instead of broadcast to support both Tuple and NamedTuple
-GradedUnitRanges.dual(s::SectorProduct) = SectorProduct(map(dual, arguments(s)))
+label_dual(s::SectorProduct) = SectorProduct(map(label_dual, arguments(s)))
 
 function trivial(type::Type{<:SectorProduct})
   return SectorProduct(arguments_trivial(arguments_type(type)))
