@@ -55,8 +55,8 @@ quantum_dimension(::NotAbelianStyle, g::AbstractUnitRange) = sum(block_dimension
 function nsymbol(s1::AbstractSector, s2::AbstractSector, s3::AbstractSector)
   full_space = fusion_product(s1, s2)
   i = findfirst(==(s3), blocklabels(full_space))
-  isnothing(i) && return labelled(0, s3)
-  return blocklengths(full_space)[i]
+  isnothing(i) && return 0
+  return unlabel(blocklengths(full_space)[i])
 end
 
 # ===============================  Fusion rule interface  ==================================
