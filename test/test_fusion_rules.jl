@@ -11,6 +11,7 @@ using SymmetrySectors:
   U1,
   Z,
   block_dimensions,
+  nsymbol,
   quantum_dimension,
   trivial
 using Test: @test, @testset, @test_throws
@@ -30,6 +31,7 @@ using TestExtras: @constinferred
     @test (@constinferred q ⊗ q) == q
     @test (@constinferred q ⊗ z0) == z0
     @test (@constinferred z1 ⊗ q) == z1
+    @test nsymbol(q, q, q) == 1
 
     # using GradedUnitRanges interface
     @test space_isequal(fusion_product(z0, z0), gradedrange([z0 => 1]))
@@ -50,6 +52,8 @@ using TestExtras: @constinferred
     @test q1 ⊗ q2 == U1(3)
     @test q2 ⊗ q1 == U1(3)
     @test (@constinferred q1 ⊗ q2) == q3
+    @test nsymbol(q1, q2, q3) == 1
+    @test nsymbol(q1, q1, q3) == 0
   end
 
   @testset "O2 fusion rules" begin
@@ -266,6 +270,8 @@ end
     @test space_isequal(
       fusion_product(dual(g5), dual(g6)), gradedrange([s1 => 2, f3 => 1, c3 => 1, ad8 => 1])
     )
+
+    @test nsymbol(ad8, ad8, ad8) == 2
   end
 
   @testset "Mixed GradedUnitRange - Sector fusion rules" begin
