@@ -5,7 +5,7 @@ using BlockArrays: blocklengths
 using LabelledNumbers: LabelledInteger, label, label_type, labelled, unlabel, unlabel_type
 using GradedUnitRanges:
   GradedUnitRanges, blocklabels, fuse_blocklengths, gradedrange, tensor_product
-using TensorProducts: ⊗, TensorProducts
+using TensorProducts: TensorProducts, ⊗
 
 abstract type AbstractSector end
 
