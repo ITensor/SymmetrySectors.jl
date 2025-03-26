@@ -1,7 +1,6 @@
 using GradedUnitRanges:
   dual, fusion_product, space_isequal, gradedrange, flip, tensor_product
 using SymmetrySectors:
-  ⊗,
   Fib,
   Ising,
   O2,
@@ -13,6 +12,7 @@ using SymmetrySectors:
   block_dimensions,
   quantum_dimension,
   trivial
+using TensorProducts: ⊗
 using Test: @test, @testset, @test_throws
 using TestExtras: @constinferred
 
