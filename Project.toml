@@ -12,7 +12,7 @@ TensorProducts = "decf83d6-1968-43f4-96dc-fdb3fe15fc6d"
 
 [compat]
 BlockArrays = "1.2.0"
-GradedUnitRanges = "0.1.8"
+GradedUnitRanges = "0.2"
 HalfIntegers = "1.6.0"
 LabelledNumbers = "0.1.0"
 TensorProducts = "0.1.0"
