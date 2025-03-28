@@ -3,13 +3,8 @@
 
 using BlockArrays: blocklengths
 using LabelledNumbers: LabelledInteger, label, label_type, labelled, unlabel, unlabel_type
-using GradedUnitRanges:
-  GradedUnitRanges,
-  blocklabels,
-  fuse_blocklengths,
-  fusion_product,
-  gradedrange,
-  tensor_product
+using GradedUnitRanges: GradedUnitRanges, blocklabels, fuse_blocklengths, gradedrange
+using TensorProducts: TensorProducts, ⊗, tensor_product
 
 abstract type AbstractSector end
 
@@ -52,16 +47,19 @@ quantum_dimension(::AbelianStyle, ::AbstractSector) = 1
 quantum_dimension(::AbelianStyle, g::AbstractUnitRange) = length(g)
 quantum_dimension(::NotAbelianStyle, g::AbstractUnitRange) = sum(block_dimensions(g))
 
+# convert to range
+to_gradedrange(c::AbstractSector) = to_gradedrange(labelled(1, c))
+to_gradedrange(l::LabelledInteger) = gradedrange([l])
+to_gradedrange(g::AbstractUnitRange) = g
+
 function nsymbol(s1::AbstractSector, s2::AbstractSector, s3::AbstractSector)
-  full_space = fusion_product(s1, s2)
+  full_space = gradedrange(s1 ⊗ s2)
   i = findfirst(==(s3), blocklabels(full_space))
   isnothing(i) && return 0
   return unlabel(blocklengths(full_space)[i])
 end
 
 # ===============================  Fusion rule interface  ==================================
-⊗(c1::AbstractSector, c2::AbstractSector) = fusion_rule(c1, c2)
-
 function fusion_rule(c1::AbstractSector, c2::AbstractSector)
   return fusion_rule(combine_styles(SymmetryStyle(c1), SymmetryStyle(c2)), c1, c2)
 end
@@ -78,6 +76,22 @@ end
 
 function label_fusion_rule(sector_type::Type{<:AbstractSector}, l1, l2)
   return [abelian_label_fusion_rule(sector_type, l1, l2) => 1]
+end
+
+# =============================  TensorProducts interface  =====--==========================
+TensorProducts.tensor_product(s::AbstractSector) = s
+
+function TensorProducts.tensor_product(c1::AbstractSector, c2::AbstractSector)
+  return fusion_rule(c1, c2)
+end
+
+# allow to fuse a Sector with a GradedUnitRange
+function TensorProducts.tensor_product(c::AbstractSector, g::AbstractUnitRange)
+  return tensor_product(to_gradedrange(c), g)
+end
+
+function TensorProducts.tensor_product(g::AbstractUnitRange, c::AbstractSector)
+  return tensor_product(g, to_gradedrange(c))
 end
 
 # ================================  GradedUnitRanges interface  ==================================
@@ -104,26 +118,4 @@ function GradedUnitRanges.fuse_blocklengths(
 )
   fused = label(l1) ⊗ label(l2)
   return gradedrange([labelled(l1 * l2, fused)])
-end
-
-# cast to range
-to_gradedrange(c::AbstractSector) = to_gradedrange(labelled(1, c))
-to_gradedrange(l::LabelledInteger) = gradedrange([l])
-to_gradedrange(g::AbstractUnitRange) = g
-
-# allow to fuse a Sector with a GradedUnitRange
-function GradedUnitRanges.tensor_product(c::AbstractSector, g::AbstractUnitRange)
-  return tensor_product(to_gradedrange(c), g)
-end
-
-function GradedUnitRanges.tensor_product(g::AbstractUnitRange, c::AbstractSector)
-  return tensor_product(g, to_gradedrange(c))
-end
-
-function GradedUnitRanges.tensor_product(c1::AbstractSector, c2::AbstractSector)
-  return to_gradedrange(fusion_rule(c1, c2))
-end
-
-function GradedUnitRanges.fusion_product(c::AbstractSector)
-  return to_gradedrange(c)
 end
