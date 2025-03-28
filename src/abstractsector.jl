@@ -53,7 +53,7 @@ to_gradedrange(l::LabelledInteger) = gradedrange([l])
 to_gradedrange(g::AbstractUnitRange) = g
 
 function nsymbol(s1::AbstractSector, s2::AbstractSector, s3::AbstractSector)
-  full_space = gradedrange(s1 ⊗ s2)
+  full_space = to_gradedrange(s1 ⊗ s2)
   i = findfirst(==(s3), blocklabels(full_space))
   isnothing(i) && return 0
   return unlabel(blocklengths(full_space)[i])
